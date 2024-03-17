@@ -65,17 +65,10 @@ extern "C" {
 
 #include <thread>
 
-enum FFmpegFrameFormat {
-	RGBA8,
-	YUV420P
-};
-
 class DecodedFrame : public RefCounted {
 	double time;
 	Ref<ImageTexture> texture;
 	Ref<Image> image;
-	Ref<Image> yuv_images[3];
-	FFmpegFrameFormat format;
 
 public:
 	Ref<ImageTexture> get_texture() const;
@@ -85,14 +78,8 @@ public:
 	double get_time() const;
 	void set_time(double p_time);
 
-	void set_yuv_image_plane(int p_plane_idx, Ref<Image> p_image);
-	Ref<Image> get_yuv_image_plane(int p_plane_idx) const;
-
 	DecodedFrame(double p_time, Ref<ImageTexture> p_texture);
 	DecodedFrame(double p_time, Ref<Image> p_image);
-
-	FFmpegFrameFormat get_format() const { return format; }
-	void set_format(const FFmpegFrameFormat &p_format) { format = p_format; }
 };
 
 class DecodedAudioFrame : public RefCounted {
@@ -127,7 +114,6 @@ public:
 	};
 
 private:
-	FFmpegFrameFormat frame_format;
 	Vector<Ref<DecodedAudioFrame>> decoded_audio_frames;
 
 	Mutex audio_buffer_mutex;
@@ -184,7 +170,6 @@ private:
 	void _scaler_frame_return(Ref<FFmpegFrame> p_hw_frame);
 
 	Ref<FFmpegFrame> _ensure_frame_pixel_format(Ref<FFmpegFrame> p_frame, AVPixelFormat p_target_pixel_format);
-	Ref<DecodedFrame> _unwrap_yuv_frame(double p_frame_time, Ref<FFmpegFrame> p_frame);
 	AVFrame *_ensure_frame_audio_format(AVFrame *p_frame, AVSampleFormat p_target_audio_format);
 
 public:
@@ -206,7 +191,6 @@ public:
 	Vector2i get_size() const;
 	int get_audio_mix_rate() const;
 	int get_audio_channel_count() const;
-	FFmpegFrameFormat get_frame_format() const { return frame_format; }
 
 	VideoDecoder(Ref<FileAccess> p_file);
 	~VideoDecoder();
