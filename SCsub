@@ -16,10 +16,6 @@ env_ffmpeg = env.Clone()
 
 FFMPEG_DUMMY = "thirdparty/ffmpeg/LICENSE.txt"
 
-ffmpeg_download_action = ffmpeg_download.ffmpeg_download_builder(
-    env_ffmpeg, FFMPEG_DUMMY, "gdextension_build/ffmpeg_download.py"
-)
-
 module_obj = []
 
 excluded = []
