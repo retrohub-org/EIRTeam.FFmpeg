@@ -40,9 +40,17 @@ addon_base_dir = "build/addons/ffmpeg/"
 addon_platform_dir = addon_base_dir
 
 if env["platform"] == "windows":
-    addon_platform_dir += "win64/"
+    if env["arch"] == "x86_32":
+        addon_platform_dir += "win32/"
+    else:
+        addon_platform_dir += "win64/"
+elif env["platform"] == "macos":
+    addon_platform_dir += "macos/"
 else:
-    addon_platform_dir += "linux64/"
+    if env["arch"] == "x86_32":
+        addon_platform_dir += "linux32/"
+    else:
+        addon_platform_dir += "linux64/"
 
 opts = Variables([], ARGUMENTS)
 opts.Add(BoolVariable("verbose", "Enable verbose output for the compilation", False))
