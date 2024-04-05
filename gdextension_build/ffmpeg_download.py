@@ -18,6 +18,8 @@ ffmpeg_versions = {
 def get_ffmpeg_install_targets(env, target_dir):
     if env["platform"] == "linuxbsd" or env["platform"] == "linux":
         return [os.path.join(target_dir, f"lib{lib}.so.{version}") for lib, version in ffmpeg_versions.items()]
+    elif env["platform"] == "macos":
+        return [os.path.join(target_dir, f"lib{lib}.dylib") for lib, version in ffmpeg_versions.items()]
     else:
         return [os.path.join(target_dir, f"{lib}-{version}.dll") for lib, version in ffmpeg_versions.items()]
 
@@ -25,6 +27,8 @@ def get_ffmpeg_install_targets(env, target_dir):
 def get_ffmpeg_install_sources(env, source_dir):
     if env["platform"] == "linuxbsd" or env["platform"] == "linux":
         return [os.path.join(source_dir, f"lib/lib{lib}.so") for lib in ffmpeg_versions]
+    elif env["platform"] == "macos":
+        return [os.path.join(source_dir, f"lib/lib{lib}.dylib") for lib in ffmpeg_versions]
     else:
         return [os.path.join(source_dir, f"bin/{lib}-{version}.dll") for lib, version in ffmpeg_versions.items()]
 
