@@ -47,8 +47,8 @@ using namespace godot;
 
 #include "gdextension_build/func_redirect.h"
 
-class VideoStreamFFMpegLoader : public ResourceFormatLoader {
-	GDCLASS(VideoStreamFFMpegLoader, ResourceFormatLoader);
+class VideoStreamFFMPEGLoader : public ResourceFormatLoader {
+	GDCLASS(VideoStreamFFMPEGLoader, ResourceFormatLoader);
 	PackedStringArray recognized_extension_cache;
 
 private:

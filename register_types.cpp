@@ -40,7 +40,7 @@
 #include "ffmpeg_video_stream.h"
 #include "video_stream_ffmpeg_loader.h"
 
-Ref<VideoStreamFFMpegLoader> ffmpeg_loader;
+Ref<VideoStreamFFMPEGLoader> ffmpeg_loader;
 
 static void print_codecs() {
 	const AVCodecDescriptor *desc = NULL;
@@ -74,9 +74,9 @@ void initialize_ffmpeg_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 	print_codecs();
-	GDREGISTER_ABSTRACT_CLASS(FFmpegVideoStreamPlayback);
-	GDREGISTER_ABSTRACT_CLASS(VideoStreamFFMpegLoader);
-	GDREGISTER_CLASS(FFmpegVideoStream);
+	GDREGISTER_ABSTRACT_CLASS(VideoStreamPlaybackFFMPEG);
+	GDREGISTER_ABSTRACT_CLASS(VideoStreamFFMPEGLoader);
+	GDREGISTER_CLASS(VideoStreamFFMPEG);
 	ffmpeg_loader.instantiate();
 #ifdef GDEXTENSION
 	ResourceLoader::get_singleton()->add_resource_format_loader(ffmpeg_loader);
