@@ -50,16 +50,19 @@ extern "C" {
 }
 
 class FFmpegFrame : public RefCounted {
-protected:
-	static void _bind_methods();
+public:
+	typedef void (*return_frame_callback_t)(Ref<RefCounted> p_instance, Ref<FFmpegFrame> p_frame);
 
 private:
 	AVFrame *frame = nullptr;
+	return_frame_callback_t return_func = nullptr;
+	Ref<WeakRef> return_instance;
 
 public:
 	AVFrame *get_frame() const;
 	double get_time() const;
 	void do_return();
+	FFmpegFrame(Ref<RefCounted> p_return_func_instance, return_frame_callback_t p_return_func);
 	FFmpegFrame();
 	~FFmpegFrame();
 };

@@ -166,8 +166,8 @@ private:
 	void _read_decoded_frames(AVFrame *p_received_frame);
 	void _read_decoded_audio_frames(AVFrame *p_received_frame);
 
-	void _hw_transfer_frame_return(Ref<FFmpegFrame> p_hw_frame);
-	void _scaler_frame_return(Ref<FFmpegFrame> p_hw_frame);
+	static void _hw_transfer_frame_return(Ref<VideoDecoder> p_decoder, Ref<FFmpegFrame> p_hw_frame);
+	static void _scaler_frame_return(Ref<VideoDecoder> p_decoder, Ref<FFmpegFrame> p_hw_frame);
 
 	Ref<FFmpegFrame> _ensure_frame_pixel_format(Ref<FFmpegFrame> p_frame, AVPixelFormat p_target_pixel_format);
 	AVFrame *_ensure_frame_audio_format(AVFrame *p_frame, AVSampleFormat p_target_audio_format);
